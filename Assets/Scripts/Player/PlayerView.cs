@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -13,15 +11,15 @@ public class PlayerView : MonoBehaviour
         _groundingController.IsGroundChanged += TurnIsJumping;
     }
 
+    private void FixedUpdate()
+    {
+        _animator.SetFloat("Speed", Mathf.Abs(_inputReader.Direction));
+    }
+
     private void OnDisable()
     {
         _groundingController.IsGroundChanged -= TurnIsJumping;
     }
-
-    private void FixedUpdate()
-    {
-        _animator.SetFloat("Speed", Mathf.Abs(_inputReader.Direction));
-    }    
 
     private void TurnIsJumping(bool value)
     {

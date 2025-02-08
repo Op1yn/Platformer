@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class EnemyView : MonoBehaviour
+public class EnemyFlipper : MonoBehaviour
 {
     [SerializeField] private EnemyMover _enemyMover;
 

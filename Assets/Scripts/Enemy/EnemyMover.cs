@@ -18,12 +18,7 @@ public class EnemyMover : MonoBehaviour
             _positionRoutePoints[i] = _route.GetChild(i).transform.position;
     }
 
-    public void Update()
-    {
-        Move();
-    }
-
-    private void Move()
+    public void Move()
     {
         if (HasPointReached())
         {

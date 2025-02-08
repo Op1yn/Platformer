@@ -1,5 +1,4 @@
 using System;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class GroundingController : MonoBehaviour
@@ -11,16 +10,12 @@ public class GroundingController : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Ground>(out _))
             TurnIsGround(true);
-
-        //Debug.Log($"IsGround111 {IsGround}");
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Ground>(out _))
             TurnIsGround(false);
-
-        //Debug.Log($"IsGround222 {IsGround}");
     }
 
     private void TurnIsGround(bool value)

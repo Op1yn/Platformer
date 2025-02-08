@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class СameraMover : MonoBehaviour
 {
-    [SerializeField] private Transform _target;  
-    [SerializeField] private float _smoothSpeed = 1f; 
+    [SerializeField] private Transform _target;
+    [SerializeField] private float _smoothSpeed = 1f;
+
     public Vector3 _offset;
 
     void LateUpdate()

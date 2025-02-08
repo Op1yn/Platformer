@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour
 {
     [SerializeField] private CoinsCollector _coinCollector;
-
     [SerializeField] private int _coinAmount;
 
     private void Start()
@@ -26,7 +23,5 @@ public class PlayerWallet : MonoBehaviour
     private void AddCoin()
     {
         _coinAmount++;
-
-        //Debug.Log(_coinAmount);
     }
 }

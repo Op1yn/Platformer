@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
@@ -22,8 +21,6 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        //Debug.Log("Jump");
-
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 
