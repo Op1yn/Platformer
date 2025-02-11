@@ -10,7 +10,7 @@ public class EnemyMover : MonoBehaviour
     private Vector2[] _positionRoutePoints;
     private int _currentPoint = 0;
 
-    void Start()
+    private void Start()
     {
         _positionRoutePoints = new Vector2[_route.childCount];
 

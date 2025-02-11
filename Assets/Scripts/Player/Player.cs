@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private GroundingController _groundingController;
+    [SerializeField] private GroundDetector _groundingDetector;
     [SerializeField] private PlayerMover _playerMover;
 
     private void FixedUpdate()
@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
         }
 
 
-        if (_inputReader.GetIsJump() && _groundingController.IsGround)
+        if (_groundingDetector.IsGround)
+        {
             _playerMover.Jump();
+        }
     }
 }

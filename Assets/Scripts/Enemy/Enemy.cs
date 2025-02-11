@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] EnemyMover _enemyMover;
 
-    private void FixedUpdate()
+    private void Update()
     {
         _enemyMover.Move();
     }

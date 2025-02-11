@@ -7,7 +7,7 @@ public class СameraMover : MonoBehaviour
 
     public Vector3 _offset;
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         Vector3 desiredPosition = _target.position + _offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, _smoothSpeed);

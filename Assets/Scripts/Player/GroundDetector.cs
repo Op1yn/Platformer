@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GroundingController : MonoBehaviour
+public class GroundDetector : MonoBehaviour
 {
     public event Action<bool> IsGroundChanged;
     public bool IsGround { get; private set; }

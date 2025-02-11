@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    [SerializeField] private InputReader _inputReader;
     [SerializeField] private float _speedX;
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rigidbody;
+    private bool _wasJumpPressed;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        _inputReader.JumpBeenPressed += SetIsJump;
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.JumpBeenPressed -= SetIsJump;
     }
 
     public void Move(float direction)
@@ -21,7 +33,16 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (_wasJumpPressed)
+        {
+            _wasJumpPressed = false;
+            _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    public void SetIsJump()
+    {
+        _wasJumpPressed = true;
     }
 
     public void TurnFront(float direction)
