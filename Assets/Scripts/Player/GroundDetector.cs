@@ -3,25 +3,33 @@ using UnityEngine;
 
 public class GroundDetector : MonoBehaviour
 {
-    public event Action<bool> IsGroundChanged;
+    public event Action Landed;
+    public event Action LeavingOffGround;
     public bool IsGround { get; private set; }
-        
+    public int AmountTouchesGround { get; private set; } = 0;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Ground>(out _))
-            TurnIsGround(true);
+        {
+            int amountActiveTouchesGroundForJump = 1;
+            AmountTouchesGround++;
+
+            if (AmountTouchesGround == amountActiveTouchesGroundForJump)
+            {
+                IsGround = true;
+                Landed?.Invoke();
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Ground>(out _))
-            TurnIsGround(false);
-    }
-
-    private void TurnIsGround(bool value)
-    {
-        IsGround = value;
-
-        IsGroundChanged?.Invoke(value);
+        {
+            AmountTouchesGround--;
+            IsGround = false;
+            LeavingOffGround?.Invoke();
+        }
     }
 }

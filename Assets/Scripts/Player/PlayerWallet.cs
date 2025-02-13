@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour
 {
-    [SerializeField] private CoinsCollector _coinCollector;
     [SerializeField] private int _coinAmount;
 
     private void Start()
@@ -10,17 +9,7 @@ public class PlayerWallet : MonoBehaviour
         _coinAmount = 0;
     }
 
-    private void OnEnable()
-    {
-        _coinCollector.CoinChanged += AddCoin;
-    }
-
-    private void OnDisable()
-    {
-        _coinCollector.CoinChanged -= AddCoin;
-    }
-
-    private void AddCoin()
+    public void AddCoin()
     {
         _coinAmount++;
     }

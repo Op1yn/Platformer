@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] EnemyMover _enemyMover;
+    [SerializeField] private EnemyMover _enemyMover;
 
     private void Update()
     {

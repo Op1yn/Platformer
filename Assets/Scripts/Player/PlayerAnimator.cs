@@ -11,7 +11,8 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        _groundingDetector.IsGroundChanged += TurnIsJumping;
+        _groundingDetector.LeavingOffGround += SetIsJumpingOffGround;
+        _groundingDetector.Landed += SetIsJumpingLanding;
     }
 
     private void FixedUpdate()
@@ -21,11 +22,17 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnDisable()
     {
-        _groundingDetector.IsGroundChanged -= TurnIsJumping;
+        _groundingDetector.LeavingOffGround -= SetIsJumpingOffGround;
+        _groundingDetector.Landed -= SetIsJumpingLanding;
     }
 
-    private void TurnIsJumping(bool value)
+    private void SetIsJumpingLanding()
     {
-        _animator.SetBool(IsJumping, !value);
+        _animator.SetBool(IsJumping, false);
+    }
+
+    private void SetIsJumpingOffGround()
+    {
+        _animator.SetBool(IsJumping, true);
     }
 }

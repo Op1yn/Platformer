@@ -14,8 +14,7 @@ public class Player : MonoBehaviour
             _playerMover.Move(_inputReader.Direction);
         }
 
-
-        if (_groundingDetector.IsGround)
+        if (_playerMover.WasJumpPressed && _groundingDetector.IsGround)
         {
             _playerMover.Jump();
         }

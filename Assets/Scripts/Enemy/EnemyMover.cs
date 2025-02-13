@@ -6,9 +6,10 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Transform _route;
     [SerializeField] private float _speed;
 
-    public event Action<Vector2> PointChanged;
     private Vector2[] _positionRoutePoints;
     private int _currentPoint = 0;
+
+    public event Action<Vector2> PointChanged;
 
     private void Start()
     {

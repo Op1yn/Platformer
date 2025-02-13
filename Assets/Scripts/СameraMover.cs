@@ -4,8 +4,7 @@ public class СameraMover : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _smoothSpeed = 1f;
-
-    public Vector3 _offset;
+    [SerializeField] private Vector3 _offset;
 
     private void LateUpdate()
     {

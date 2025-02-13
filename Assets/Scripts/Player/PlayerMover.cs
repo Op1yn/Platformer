@@ -9,7 +9,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rigidbody;
-    private bool _wasJumpPressed;
+
+    public bool WasJumpPressed { get; private set; }
 
     private void Awake()
     {
@@ -33,16 +34,13 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        if (_wasJumpPressed)
-        {
-            _wasJumpPressed = false;
-            _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-        }
+        WasJumpPressed = false;
+        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 
     public void SetIsJump()
     {
-        _wasJumpPressed = true;
+        WasJumpPressed = true;
     }
 
     public void TurnFront(float direction)
