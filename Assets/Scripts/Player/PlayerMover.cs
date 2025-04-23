@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private PlayerDamageDealer _damageDealer;
     [SerializeField] private float _speedX;
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rigidbody;
 
     public bool WasJumpPressed { get; private set; }
+    public bool IsPossibleMove { get; private set; } = true;
 
     private void Awake()
     {
@@ -20,11 +22,15 @@ public class PlayerMover : MonoBehaviour
     private void OnEnable()
     {
         _inputReader.JumpBeenPressed += SetIsJump;
+        _damageDealer.AttackBegun += NotMoveToAttack;
+        _damageDealer.AttackOver += AllowMovements;
     }
 
     private void OnDisable()
     {
         _inputReader.JumpBeenPressed -= SetIsJump;
+        _damageDealer.AttackBegun -= NotMoveToAttack;
+        _damageDealer.AttackOver -= AllowMovements;
     }
 
     public void Move(float direction)
@@ -59,5 +65,16 @@ public class PlayerMover : MonoBehaviour
                 transform.rotation = Quaternion.Euler(new Vector2(0, directionNormalized));
             }
         }
+    }
+
+    private void NotMoveToAttack()
+    {
+        _rigidbody.velocity = Vector2.zero;
+        IsPossibleMove = false;
+    }
+
+    private void AllowMovements()
+    {
+        IsPossibleMove = true;
     }
 }

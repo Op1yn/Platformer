@@ -6,17 +6,18 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Transform _route;
     [SerializeField] private float _speed;
 
-    private Vector2[] _positionRoutePoints;
+    private Vector2[] _routePoints;
     private int _currentPoint = 0;
+    private bool _IsAllowedToMove = true;
 
     public event Action<Vector2> PointChanged;
 
     private void Start()
     {
-        _positionRoutePoints = new Vector2[_route.childCount];
+        _routePoints = new Vector2[_route.childCount];
 
         for (int i = 0; i < _route.childCount; i++)
-            _positionRoutePoints[i] = _route.GetChild(i).transform.position;
+            _routePoints[i] = _route.GetChild(i).transform.position;
     }
 
     public void Move()
@@ -26,21 +27,34 @@ public class EnemyMover : MonoBehaviour
             SwitchRoutePoint();
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, _positionRoutePoints[_currentPoint], _speed * Time.deltaTime);
+        if (_IsAllowedToMove)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _routePoints[_currentPoint], _speed * Time.deltaTime);
+        }
+    }
+
+    public void StopToAttack()
+    {
+        _IsAllowedToMove = false;
+    }
+
+    public void AllowMovement()
+    {
+        _IsAllowedToMove = true;
     }
 
     private bool HasPointReached()
     {
         float pointDistanceReach = 0.2f;
-        Vector2 offset = _positionRoutePoints[_currentPoint] - new Vector2(transform.position.x, transform.position.y);
+        Vector2 offset = _routePoints[_currentPoint] - new Vector2(transform.position.x, transform.position.y);
 
         return offset.sqrMagnitude <= pointDistanceReach;
     }
 
     private void SwitchRoutePoint()
     {
-        _currentPoint = (_currentPoint + 1) % _positionRoutePoints.Length;
+        _currentPoint = (_currentPoint + 1) % _routePoints.Length;
 
-        PointChanged?.Invoke(_positionRoutePoints[_currentPoint]);
-    }    
+        PointChanged?.Invoke(_routePoints[_currentPoint]);
+    }
 }

@@ -2,29 +2,36 @@ using UnityEngine;
 
 public class EnemyFlipper : MonoBehaviour
 {
-    [SerializeField] private EnemyMover _enemyMover;
+    private Transform _target;
+    private float _negativeDirectionY = 180;
+    private Vector2 _positiveDirection;
+    private Vector2 _negativeDirection;
 
-    private void OnEnable()
+    private void Start()
     {
-        _enemyMover.PointChanged += TurnFront;
+        _positiveDirection = new Vector2(0, 0);
+        _negativeDirection = new Vector2(0, _negativeDirectionY);
     }
 
-    private void OnDisable()
+    private void FixedUpdate()
     {
-        _enemyMover.PointChanged -= TurnFront;
+        TurnFront();
     }
 
-    private void TurnFront(Vector2 pointPosition)
+    public void SetTarget(Transform target)
     {
-        int reversDirection = 180;
+        _target = target;
+    }
 
-        if (transform.position.x < pointPosition.x)
+    public void TurnFront()
+    {
+        if (_target.position.x > transform.position.x)
         {
-            _enemyMover.transform.rotation = Quaternion.Euler(new Vector2(0, 0));
+            transform.rotation = Quaternion.Euler(_positiveDirection);
         }
         else
         {
-            _enemyMover.transform.rotation = Quaternion.Euler(new Vector2(0, reversDirection));
+            transform.rotation = Quaternion.Euler(_negativeDirection);
         }
     }
 }

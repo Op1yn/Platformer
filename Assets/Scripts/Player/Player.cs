@@ -8,15 +8,18 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_inputReader.Direction != 0)
+        if (_playerMover.IsPossibleMove)
         {
-            _playerMover.TurnFront(_inputReader.Direction);
-            _playerMover.Move(_inputReader.Direction);
-        }
+            if (_inputReader.Direction != 0)
+            {
+                _playerMover.TurnFront(_inputReader.Direction);
+                _playerMover.Move(_inputReader.Direction);
+            }
 
-        if (_playerMover.WasJumpPressed && _groundingDetector.IsGround)
-        {
-            _playerMover.Jump();
+            if (_playerMover.WasJumpPressed && _groundingDetector.IsGround)
+            {
+                _playerMover.Jump();
+            }
         }
     }
 }
